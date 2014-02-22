@@ -12,13 +12,17 @@ Template.calendar.showEditEvent = function(){
 }
 
 Template.editEvent.evt = function(){
-  return CalEvents.findOne({_id:Session.get('editing_calevent')});
+  var calEvent =  CalEvents.findOne({_id:Session.get('editing_calevent')});
+  return calEvent;
 }
 
 Template.editEvent.events({
   'click .save': function(evt, tmpl){
-    updateCalEvent(Session.get('editing_calevent', tmpl.find('.title').value));
+    Session.set('showEditEvent', false);
+    updateCalEvent(Session.get('editing_calevent'), tmpl.find('.title').value);
     Session.set('editing_calevent', null);
+  },
+  'click .cancel': function(evt, tmpl){
     Session.set('showEditEvent', false);
   }
 });
