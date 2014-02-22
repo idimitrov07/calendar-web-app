@@ -38,6 +38,9 @@ Template.calendar.rendered = function() {
         Session.set('showEditEvent', true);
 
       },
+      eventDrop:function(calEvent){
+        CalEvents.update(calEvent.id, {$set: {start:calEvent.start, end:calEvent.end}});
+      },
       events:function(start, end, callback){
         var events = [];
         calEvents = CalEvents.find();
@@ -50,7 +53,8 @@ Template.calendar.rendered = function() {
           });
         });
         callback(events);
-      }
+      },
+      editable: true
   });
 }
 Template.calendar.lastMod = function(){
