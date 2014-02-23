@@ -1,10 +1,14 @@
+
+
 <template name="calendar">
 	{{#if showEditEvent}}
 		{{>editEvent}}
 	{{/if}}
+	
+	
 	<input type="hidden" name="lastMod" value="{{lastMod}}" id="lastMod" >
 	<div id="calendar">
-
+		
 	</div>
 </template>
 

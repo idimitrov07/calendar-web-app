@@ -2,6 +2,7 @@ CalEvents = new Meteor.Collection('calevents');
 Session.setDefault('editing_calevent', null);
 Session.setDefault('showEditEvent', false);
 Session.setDefault('lastMod', null);
+Session.setDefault('eventId', null);
 Meteor.Router.add({
   '/':'homepage',
   '/calendar':'calendar'
@@ -32,6 +33,8 @@ Template.calendar.rendered = function() {
       dayClick:function(date, allDay, jsEvent, view) {
         CalEvents.insert({title:'New Event', start:date, end:date});
         Session.set('lastMod', new Date());
+        jsEvent.preventDefault();
+        Session.set('lastMod', null);
       },
       eventClick:function(calEvent, jsEvent, view){
         Session.set('editing_calevent', calEvent.id);
@@ -59,6 +62,10 @@ Template.calendar.rendered = function() {
 }
 Template.calendar.lastMod = function(){
   return Session.get('lastMod');
+}
+
+Template.calendar.eventId = function(){
+  return Session.get('eventId');
 }
 
 var updateCalEvent = function(id, title){
